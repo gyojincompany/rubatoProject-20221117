@@ -1,6 +1,7 @@
 package com.rubato.home.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,29 @@ public class HomeController {
 		return "redirect:index";
 	}
 	
+	@RequestMapping(value = "loginOk")
+	public String loginOk(HttpServletRequest request, HttpSession session) {
+		
+		String memberId = request.getParameter("mid");
+		String memberPw = request.getParameter("mpw");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		//int checkIdFlag = dao.checkUserId(memberId);
+		int checkIdFlag = dao.checkUserIdAndPw(memberId, memberPw);//1이면 로그인ok, 0이면 로그인x
+		
+		if(checkIdFlag == 1) {
+			session.setAttribute("memberId", memberId);
+		}
+		
+		return "redirect:index";
+	}
 	
+	@RequestMapping(value = "logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:index";
+	}
 }

@@ -11,11 +11,33 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 </head>
 <body>
+	<% 
+		String sessionId = (String) session.getAttribute("memberId");
+		//로그인중이라면 로그인한 아이디가 저장되고 비로그인 중이면 sessionId==null 임
+	%>
+
+
+
   <div id="wrap">
     <header> <!-- header 시작 -->
       <a href="index"><img id="logo" src="${pageContext.request.contextPath}/resources/img/logo.png"></a>
       <nav id="top_menu">
-        HOME | LOGIN | JOIN | NOTICE
+        HOME | 
+        
+        <% if(sessionId == null) { %>
+        LOGIN
+        <% } else { %>
+        <a href="logout">LOGOUT</a>
+        <% } %>
+        
+         | 
+         
+         <% if(sessionId == null) { %>
+         JOIN 
+         <% } else { %>
+         LEVEL 7
+         <% } %>
+         | NOTICE
       </nav>
       <nav id="main_menu">
         <ul>
@@ -30,6 +52,8 @@
     <aside>
       <article id="login_box"> <!-- login box 시작 -->
         <img id="login_title" src="${pageContext.request.contextPath}/resources/img/ttl_login.png">
+        
+         <% if(sessionId == null) { %>
         <form action="loginOk">
         <div id="input_button">
           <ul id="login_input">
@@ -39,11 +63,18 @@
           <input type="image" id="login_btn" src="${pageContext.request.contextPath}/resources/img/btn_login.gif">
         </div>
         </form>
+        <% } else { %>
+        <br><%= sessionId %>님 로그인 중<br>        
+        <% } %>
         <div class="clear"></div>
+        <% if(sessionId == null) { %>
         <div id="join_search">
           <img src="${pageContext.request.contextPath}/resources/img/btn_join.gif">
           <img src="${pageContext.request.contextPath}/resources/img/btn_search.gif">
         </div>
+        <% } else {%>
+        <a href="logout">로그아웃</a>
+        <% } %>
       </article> <!-- login box 끝 -->
       <article id="guestbook"> <!-- guestbook 시작 -->
         <div id="guestbook_title">
