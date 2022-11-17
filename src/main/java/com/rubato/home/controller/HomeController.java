@@ -28,4 +28,9 @@ public class HomeController {
 		return "board_write";
 	}
 	
+	@RequestMapping(value = "member_join")
+	public String member_join() {
+		return "member_join";
+	}
+	
 }
