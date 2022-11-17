@@ -44,7 +44,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "joinOk")
-	public String joinOk(HttpServletRequest request) {
+	public String joinOk(HttpServletRequest request, HttpSession session) {
 		
 		String memberId = request.getParameter("mid");
 		String memberPw = request.getParameter("mpw");
@@ -54,6 +54,8 @@ public class HomeController {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		dao.joinMember(memberId, memberPw, memberName, memberEmail);
+		
+		session.setAttribute("memberId", memberId);//가입과 동시에 로그인
 		
 		return "redirect:index";
 	}
