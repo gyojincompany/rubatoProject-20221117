@@ -109,7 +109,7 @@
           <tr>
             <td class="col1">${boardDto.rfbnum }</td>
             <td class="col2">
-              <a href="board_view">${boardDto.rfbtitle }</a>
+              <a href="board_view?rfbnum=${boardDto.rfbnum }">${boardDto.rfbtitle }</a>
             </td>
             <td class="col3">${boardDto.rfbname }</td>
             <td class="col4">${boardDto.rfbdate }</td>

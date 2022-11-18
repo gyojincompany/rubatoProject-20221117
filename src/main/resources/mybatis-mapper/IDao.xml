@@ -32,4 +32,8 @@
 		SELECT COUNT(*) FROM rubafreeboard
 	</select>
 	
+	<select id="rfboardView" resultType="com.rubato.home.dto.RFBoardDto">
+		SELECT * FROM rubafreeboard WHERE rfbnum=#{param1}
+	</select>
+	
 </mapper>

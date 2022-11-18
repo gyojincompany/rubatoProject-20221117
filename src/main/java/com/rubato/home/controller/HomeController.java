@@ -45,7 +45,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "board_view")
-	public String board_view() {
+	public String board_view(HttpServletRequest request, Model model) {
+		
+		String rfbnum = request.getParameter("rfbnum");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		RFBoardDto rfboardDto = dao.rfboardView(rfbnum);
+		
+		model.addAttribute("rfbView", rfboardDto);
+		
 		return "board_view";
 	}
 	
