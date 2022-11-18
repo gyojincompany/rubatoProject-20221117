@@ -14,5 +14,6 @@ public interface IDao {
 	//게시판관련
 	public void rfbwrite(String rfbname, String rfbtitle, String rfbcontent, String rfbid);//insert
 	public ArrayList<RFBoardDto> rfblist();//게시판 리스트 select
+	public int rfboardAllCount();//총 게시물 개수 select
 	
 }

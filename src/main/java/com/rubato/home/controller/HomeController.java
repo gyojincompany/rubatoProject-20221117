@@ -36,8 +36,10 @@ public class HomeController {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		ArrayList<RFBoardDto> boardDtos = dao.rfblist();
+		int boardCount = dao.rfboardAllCount();
 		
 		model.addAttribute("boardList", boardDtos);
+		model.addAttribute("boardCount", boardCount);
 		
 		return "board_list";
 	}

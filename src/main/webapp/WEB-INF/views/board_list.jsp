@@ -83,7 +83,7 @@
         <img src="${pageContext.request.contextPath}/resources/img/comm.gif">
         <h2 id="board_title">자유게시판</h2>
         <div id="total_search">
-          <div id="total">▷ 총 5개의 게시물이 있습니다.</div>
+          <div id="total">▷ 총 ${boardCount }개의 게시물이 있습니다.</div>
           <div id="search">
             <div id="select_img"><img src="${pageContext.request.contextPath}/resources/img/select_search.gif"></div>
             <div id="search_select">

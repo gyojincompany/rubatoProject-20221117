@@ -28,4 +28,8 @@
 		SELECT * FROM rubafreeboard ORDER BY rfbnum DESC
 	</select>
 	
+	<select id="rfboardAllCount" resultType="int">
+		SELECT COUNT(*) FROM rubafreeboard
+	</select>
+	
 </mapper>
