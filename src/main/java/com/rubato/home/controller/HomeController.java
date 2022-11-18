@@ -186,6 +186,7 @@ public class HomeController {
 			
 			IDao dao = sqlSession.getMapper(IDao.class);
 			dao.rrwrite(rrorinum, sessionId, rrcontent);//댓글 쓰기
+			dao.rrcount(rrorinum);//해당글의 댓글 총 개수 증가
 			
 			RFBoardDto rfboardDto = dao.rfboardView(rrorinum);
 			ArrayList<RReplyDto> replyDtos =  dao.rrlist(rrorinum);

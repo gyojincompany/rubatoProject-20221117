@@ -110,6 +110,9 @@
             <td class="col1">${boardDto.rfbnum }</td>
             <td class="col2">
               <a href="board_view?rfbnum=${boardDto.rfbnum }">${boardDto.rfbtitle }</a>
+              <c:if test="${boardDto.rfbreplycount != 0 }">              
+              &nbsp;&nbsp;[${boardDto.rfbreplycount }]
+              </c:if>
             </td>
             <td class="col3">${boardDto.rfbname }</td>
             <td class="col4">${boardDto.rfbdate }</td>

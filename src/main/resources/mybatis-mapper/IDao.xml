@@ -60,4 +60,8 @@
 		SELECT * FROM rubareply WHERE rrorinum=#{param1}
 	</select>
 	
+	<update id="rrcount">
+		UPDATE rubafreeboard SET rfbreplycount=rfbreplycount+1 WHERE rfbnum=#{param1}
+	</update>
+	
 </mapper>

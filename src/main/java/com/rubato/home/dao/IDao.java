@@ -23,5 +23,7 @@ public interface IDao {
 	//댓글관련
 	public void rrwrite(String rrorinum, String rrid, String rrcontent);//새 댓글 입력 insert
 	public ArrayList<RReplyDto> rrlist(String rrorinum);//해당글의 댓글 리스트 select
+	public void rrcount(String rrorinum);//댓글 등록시 해당글의 댓글갯수 1증가 
+	
 	
 }
