@@ -84,18 +84,20 @@
         <h2 id="board_title">자유게시판</h2>
         <div id="total_search">
           <div id="total">▷ 총 ${boardCount }개의 게시물이 있습니다.</div>
+          <form action="search_list">
           <div id="search">
             <div id="select_img"><img src="${pageContext.request.contextPath}/resources/img/select_search.gif"></div>
             <div id="search_select">
-              <select>
-                <option>제목</option>
-                <option>내용</option>
-                <option>글쓴이</option>
+              <select name="searchOption">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="writer">글쓴이</option>
               </select>
             </div>
-            <div id="search_input"><input type="text"></div>
-            <div id="search_btn"><img src="${pageContext.request.contextPath}/resources/img/search_button.gif"></div>
+            <div id="search_input"><input type="text" name="searchKey"></div>
+            <div id="search_btn"><input type="image" src="${pageContext.request.contextPath}/resources/img/search_button.gif"></div>
           </div>
+          </form>
         </div> <!-- total search 끝 -->
         <table>
           <tr>

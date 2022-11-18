@@ -219,4 +219,11 @@ public class HomeController {
 		return "board_view";
 	}
 	
+	@RequestMapping(value = "search_list")
+	public String search_list() {
+		
+		
+		return "board_list";
+	}
+	
 }
