@@ -105,7 +105,7 @@
         			${replyDto.rrdate }
         		</td>
         		<td>
-        			<a href="replyDelete?rrnum=${replyDto.rrnum }">삭제</a>
+        			<a href="replyDelete?rrnum=${replyDto.rrnum }&rfbnum=${rfbView.rfbnum }">삭제</a>
         		</td>
         		
         	</tr>

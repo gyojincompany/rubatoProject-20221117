@@ -64,4 +64,12 @@
 		UPDATE rubafreeboard SET rfbreplycount=rfbreplycount+1 WHERE rfbnum=#{param1}
 	</update>
 	
+	<delete id="rrdelete">
+		DELETE FROM rubareply WHERE rrnum=#{param1}
+	</delete>
+	
+	<update id="rrcountMinus">
+		UPDATE rubafreeboard SET rfbreplycount=rfbreplycount-1 WHERE rfbnum=#{param1}
+	</update>
+	
 </mapper>

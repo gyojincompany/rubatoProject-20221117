@@ -199,4 +199,24 @@ public class HomeController {
 		return "board_view";
 	}
 	
+	@RequestMapping(value = "replyDelete")
+	public String replyDelete(HttpServletRequest request, Model model) {
+		
+		String rrnum = request.getParameter("rrnum");//댓글 고유번호
+		String rrorinum = request.getParameter("rfbnum");//댓글이 달린 원글의 고유번호
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.rrdelete(rrnum);//댓글 삭제
+		dao.rrcountMinus(rrorinum);//해당 글의 댓글 갯수 1감소
+		
+		RFBoardDto rfboardDto = dao.rfboardView(rrorinum);
+		ArrayList<RReplyDto> replyDtos =  dao.rrlist(rrorinum);
+		
+		model.addAttribute("rfbView", rfboardDto);//원글의 게시글 내용 전부
+		model.addAttribute("replylist", replyDtos);//해당 글에 달린 댓글 리스트
+		
+		return "board_view";
+	}
+	
 }
