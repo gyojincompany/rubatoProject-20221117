@@ -16,5 +16,6 @@ public interface IDao {
 	public ArrayList<RFBoardDto> rfblist();//게시판 리스트 select
 	public int rfboardAllCount();//총 게시물 개수 select
 	public RFBoardDto rfboardView(String rfbnum);//클릭한 글의 게시물 내용 보기 select
+	public void delete(String rfbnum);//글삭제 delete
 	
 }

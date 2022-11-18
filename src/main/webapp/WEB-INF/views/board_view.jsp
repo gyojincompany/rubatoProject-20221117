@@ -95,7 +95,7 @@
           <img id="ok_ripple" src="${pageContext.request.contextPath}/resources/img/ok_ripple.gif">
         </div>
         <div id="buttons">
-          <a href="#"><img src="${pageContext.request.contextPath}/resources/img/delete.png"></a>
+          <a href="delete?rfbnum=${rfbView.rfbnum }"><img src="${pageContext.request.contextPath}/resources/img/delete.png"></a>
           <a href="board_list"><img src="${pageContext.request.contextPath}/resources/img/list.png"></a>
           <a href="board_write"><img src="${pageContext.request.contextPath}/resources/img/write.png"></a>
         </div>

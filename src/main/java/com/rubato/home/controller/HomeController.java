@@ -144,4 +144,16 @@ public class HomeController {
 		return "redirect:board_list";
 	}
 	
+	@RequestMapping(value = "delete")
+	public String delete(HttpServletRequest request) {
+		
+		String rfbnum = request.getParameter("rfbnum");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.delete(rfbnum);
+		
+		return "redirect:board_list";
+	}
+	
 }
