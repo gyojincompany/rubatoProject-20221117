@@ -4,6 +4,7 @@ package com.rubato.home.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +13,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rubato.home.dao.IDao;
+import com.rubato.home.dto.RFBoardDto;
 
 @Controller
 public class HomeController {
@@ -28,8 +31,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "board_list")
-	public String board_list() {
+	public String board_list(Model model) {
 		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<RFBoardDto> boardDtos = dao.rfblist();
+		
+		model.addAttribute("boardList", boardDtos);
 		
 		return "board_list";
 	}

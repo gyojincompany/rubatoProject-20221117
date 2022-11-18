@@ -23,4 +23,9 @@
 		VALUES
 			(rfb_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, 0, 0)
 	</insert>
+	
+	<select id="rfblist" resultType="com.rubato.home.dto.RFBoardDto">
+		SELECT * FROM rubafreeboard ORDER BY rfbnum DESC
+	</select>
+	
 </mapper>

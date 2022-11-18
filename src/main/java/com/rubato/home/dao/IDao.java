@@ -1,5 +1,9 @@
 package com.rubato.home.dao;
 
+import java.util.ArrayList;
+
+import com.rubato.home.dto.RFBoardDto;
+
 public interface IDao {
 	
 	//멤버 관련
@@ -9,6 +13,6 @@ public interface IDao {
 	
 	//게시판관련
 	public void rfbwrite(String rfbname, String rfbtitle, String rfbcontent, String rfbid);//insert
-	
+	public ArrayList<RFBoardDto> rfblist();//게시판 리스트 select
 	
 }

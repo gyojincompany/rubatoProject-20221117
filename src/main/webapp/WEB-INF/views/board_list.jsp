@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,33 +105,17 @@
             <th>일시</th>
             <th>조회수</th>
           </tr>
+          <c:forEach items="${boardList}" var="boardDto">
           <tr>
-            <td class="col1">1</td>
+            <td class="col1">${boardDto.rfbnum }</td>
             <td class="col2">
-              <a href="board_view">까스통님의 선물인 보드카가 정말 독하네요!!!</a>
+              <a href="board_view">${boardDto.rfbtitle }</a>
             </td>
-            <td class="col3">루바토</td>
-            <td class="col4">2022-09-30</td>
-            <td class="col5">13</td>
+            <td class="col3">${boardDto.rfbname }</td>
+            <td class="col4">${boardDto.rfbdate }</td>
+            <td class="col5">${boardDto.rfbhit }</td>
           </tr>
-          <tr>
-            <td class="col1">2</td>
-            <td class="col2">
-              <a href="board_view">까스통님의 선물인 보드카가 정말 독하네요!!!</a>
-            </td>
-            <td class="col3">루바토</td>
-            <td class="col4">2022-09-30</td>
-            <td class="col5">13</td>
-          </tr>
-          <tr>
-            <td class="col1">3</td>
-            <td class="col2">
-              <a href="board_view">까스통님의 선물인 보드카가 정말 독하네요!!!</a>
-            </td>
-            <td class="col3">루바토</td>
-            <td class="col4">2022-09-30</td>
-            <td class="col5">13</td>
-          </tr>
+          </c:forEach>
         </table> <!-- 게시판 목록 테이블 끝 -->
         <div id="buttons">
           <div class="col1">◀ 이전 1 다음 ▶</div>
