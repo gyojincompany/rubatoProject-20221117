@@ -1,6 +1,12 @@
 package com.rubato.home.controller;
 
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,7 +40,22 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "board_write")
-	public String board_write() {
+	public String board_write(HttpSession session, HttpServletResponse response) {
+		String sessionId = (String) session.getAttribute("memberId");
+		if(sessionId == null) {//참이면 로그인이 안된 상태
+			PrintWriter out;
+			try {
+				response.setContentType("text/html;charset=utf-8");
+				out = response.getWriter();
+				out.println("<script>alert('로그인하지 않으면 글을 쓰실수 없습니다!');history.go(-1);</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}		
+		
 		return "board_write";
 	}
 	
@@ -71,8 +92,9 @@ public class HomeController {
 		//int checkIdFlag = dao.checkUserId(memberId);
 		int checkIdFlag = dao.checkUserIdAndPw(memberId, memberPw);//1이면 로그인ok, 0이면 로그인x
 		
-		if(checkIdFlag == 1) {
+		if(checkIdFlag == 1) {//참이면 로그인 성공
 			session.setAttribute("memberId", memberId);
+			
 		}
 		
 		return "redirect:index";
@@ -85,4 +107,22 @@ public class HomeController {
 		
 		return "redirect:index";
 	}
+	
+	@RequestMapping(value = "writeOk")
+	public String writeOk(HttpServletRequest request, HttpSession session) {
+		
+		String boardName = request.getParameter("rfbname");
+		String boardTitle = request.getParameter("rfbtitle");
+		String boardContent = request.getParameter("rfbcontent");
+		
+		String sessionId = (String) session.getAttribute("memberId");
+		//글쓴이의 아이디는 현재 로그인된 유저의 아이디이므로 세션에서 가져와서 전달 
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
+		
+		return "redirect:board_list";
+	}
+	
 }

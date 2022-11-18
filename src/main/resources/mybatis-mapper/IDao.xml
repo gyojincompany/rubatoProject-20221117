@@ -16,5 +16,11 @@
 	<select id="checkUserIdAndPw" resultType="int">
 		SELECT COUNT(*) FROM rubamember WHERE mid=#{param1} and mpw=#{param2}
 	</select>
-
+	
+	<insert id="rfbwrite">
+		INSERT INTO 
+			rubafreeboard(rfbnum, rfbname, rfbtitle, rfbcontent, rfbuserid, rfbhit, rfbreplycount) 
+		VALUES
+			(rfb_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, 0, 0)
+	</insert>
 </mapper>
