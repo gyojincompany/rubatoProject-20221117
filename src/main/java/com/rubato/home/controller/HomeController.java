@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rubato.home.dao.IDao;
 import com.rubato.home.dto.RFBoardDto;
+import com.rubato.home.dto.RReplyDto;
 
 @Controller
 public class HomeController {
@@ -55,8 +56,10 @@ public class HomeController {
 		dao.rfbhit(rfbnum);//조회수 증가
 		
 		RFBoardDto rfboardDto = dao.rfboardView(rfbnum);
+		ArrayList<RReplyDto> replyDtos =  dao.rrlist(rfbnum);
 		
 		model.addAttribute("rfbView", rfboardDto);
+		model.addAttribute("replylist", replyDtos);//해당 글에 달린 댓글 리스트
 		
 		return "board_view";
 	}
@@ -157,6 +160,42 @@ public class HomeController {
 		dao.delete(rfbnum);
 		
 		return "redirect:board_list";
+	}
+	
+	@RequestMapping(value = "replyOk")
+	public String replyOk(HttpServletResponse response, HttpServletRequest request, HttpSession session, Model model ) {
+		
+		String rrorinum = request.getParameter("rfbnum");//댓글이 달린 원글의 번호
+		String rrcontent = request.getParameter("rrcontent");//댓글 내용
+		
+		String sessionId = (String) session.getAttribute("memberId");//현재 로그인한 유저의 아이디
+		
+		if(sessionId == null) {//참이면 로그인이 안된 상태
+			PrintWriter out;
+			try {
+				response.setContentType("text/html;charset=utf-8");
+				out = response.getWriter();
+				out.println("<script>alert('로그인하지 않으면 글을 쓰실수 없습니다!');history.go(-1);</script>");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} else {
+			
+			IDao dao = sqlSession.getMapper(IDao.class);
+			dao.rrwrite(rrorinum, sessionId, rrcontent);//댓글 쓰기
+			
+			RFBoardDto rfboardDto = dao.rfboardView(rrorinum);
+			ArrayList<RReplyDto> replyDtos =  dao.rrlist(rrorinum);
+			
+			model.addAttribute("rfbView", rfboardDto);//원글의 게시글 내용 전부
+			model.addAttribute("replylist", replyDtos);//해당 글에 달린 댓글 리스트
+			
+		}
+		
+		return "board_view";
 	}
 	
 }

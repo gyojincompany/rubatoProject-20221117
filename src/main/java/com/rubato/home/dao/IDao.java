@@ -3,6 +3,7 @@ package com.rubato.home.dao;
 import java.util.ArrayList;
 
 import com.rubato.home.dto.RFBoardDto;
+import com.rubato.home.dto.RReplyDto;
 
 public interface IDao {
 	
@@ -18,5 +19,9 @@ public interface IDao {
 	public RFBoardDto rfboardView(String rfbnum);//클릭한 글의 게시물 내용 보기 select
 	public void delete(String rfbnum);//글삭제 delete
 	public void rfbhit(String rfbnum);//조회수
+	
+	//댓글관련
+	public void rrwrite(String rrorinum, String rrid, String rrcontent);//새 댓글 입력 insert
+	public ArrayList<RReplyDto> rrlist(String rrorinum);//해당글의 댓글 리스트 select
 	
 }

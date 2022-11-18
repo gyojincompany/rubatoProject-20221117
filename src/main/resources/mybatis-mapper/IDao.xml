@@ -5,6 +5,9 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.rubato.home.dao.IDao">
+	
+	<!-- 멤버관련 SQL -->
+	
 	<insert id="joinMember">
 		INSERT INTO rubamember(mid, mpw, mname, memail) VALUES(#{param1},#{param2},#{param3},#{param4})
 	</insert>
@@ -16,6 +19,8 @@
 	<select id="checkUserIdAndPw" resultType="int">
 		SELECT COUNT(*) FROM rubamember WHERE mid=#{param1} and mpw=#{param2}
 	</select>
+	
+	<!-- 자유게시판 SQL -->
 	
 	<insert id="rfbwrite">
 		INSERT INTO 
@@ -43,5 +48,16 @@
 	<update id="rfbhit">
 		UPDATE rubafreeboard SET rfbhit=rfbhit+1 WHERE rfbnum=#{param1}
 	</update>
+	
+	<!-- 댓글 SQL -->
+	
+	<insert id="rrwrite">
+		INSERT INTO rubareply(rrnum, rrorinum, rrid, rrcontent) 
+		VALUES (rr_seq.nextval, #{param1}, #{param2}, #{param3})
+	</insert>
+	
+	<select id="rrlist" resultType="com.rubato.home.dto.RReplyDto">
+		SELECT * FROM rubareply WHERE rrorinum=#{param1}
+	</select>
 	
 </mapper>
