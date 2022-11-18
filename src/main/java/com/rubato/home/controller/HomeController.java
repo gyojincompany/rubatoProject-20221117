@@ -45,11 +45,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "board_view")
-	public String board_view(HttpServletRequest request, Model model) {
+	public String board_view(HttpServletRequest request, Model model, HttpSession session) {
 		
 		String rfbnum = request.getParameter("rfbnum");
+		//사용자가 글리스트에서 클릭한 글의 번호
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
+		IDao dao = sqlSession.getMapper(IDao.class);			
+		
+		dao.rfbhit(rfbnum);//조회수 증가
 		
 		RFBoardDto rfboardDto = dao.rfboardView(rfbnum);
 		

@@ -40,4 +40,8 @@
 		DELETE FROM rubafreeboard WHERE rfbnum=#{param1}
 	</delete>
 	
+	<update id="rfbhit">
+		UPDATE rubafreeboard SET rfbhit=rfbhit+1 WHERE rfbnum=#{param1}
+	</update>
+	
 </mapper>
