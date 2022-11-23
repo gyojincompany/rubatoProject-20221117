@@ -2,6 +2,7 @@ package com.rubato.home.dao;
 
 import java.util.ArrayList;
 
+import com.rubato.home.dto.FileDto;
 import com.rubato.home.dto.RFBoardDto;
 import com.rubato.home.dto.RReplyDto;
 
@@ -36,4 +37,6 @@ public interface IDao {
 	public void fileInfoInsert(int boardnum, String fileoriname, String filename, String fileextension, String fileurl);
 	public ArrayList<RFBoardDto> boardLatestInfo(String rfbuserid);
 	//현재 파일이 첨부된 글을 쓴 아이디로 검색된 글 목록
+	public FileDto getFileInfo(String rfbnum);
+	//파일이 첨부된 게시글의 번호로 조회한 첨부된 파일의 모든 정보 dto
 }

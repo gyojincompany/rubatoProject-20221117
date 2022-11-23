@@ -93,6 +93,13 @@
         <form action="replyOk">
         <input type="hidden" name="rfbnum" value="${rfbView.rfbnum }">
         
+        <p id="file_info">
+        	※ 첨부파일 : 
+        	<a href="">
+        	${fileDto.fileoriname }
+        	</a>
+        </p>
+        <br>
         <!-- 해당글의 댓글 리스트 출력 -->
         <table border="1" cellpadding="0" cellspacing="0" width="750">
         	<c:forEach items="${replylist }" var="replyDto">

@@ -95,4 +95,8 @@
 		SELECT * FROM rubafreeboard WHERE rfbuserid = #{param1} ORDER BY rfbnum DESC
 	</select>
 	
+	<select id="getFileInfo" resultType="com.rubato.home.dto.FileDto">
+		SELECT * FROM rubafiles WHERE boardnum=#{param1}
+	</select>
+	
 </mapper>

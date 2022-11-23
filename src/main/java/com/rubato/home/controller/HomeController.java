@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rubato.home.dao.IDao;
+import com.rubato.home.dto.FileDto;
 import com.rubato.home.dto.RFBoardDto;
 import com.rubato.home.dto.RReplyDto;
 
@@ -95,8 +96,11 @@ public class HomeController {
 		RFBoardDto rfboardDto = dao.rfboardView(rfbnum);
 		ArrayList<RReplyDto> replyDtos =  dao.rrlist(rfbnum);
 		
+		FileDto fileDto = dao.getFileInfo(rfbnum);
+		
 		model.addAttribute("rfbView", rfboardDto);
 		model.addAttribute("replylist", replyDtos);//해당 글에 달린 댓글 리스트
+		model.addAttribute("fileDto", fileDto);//해당 글에 첨부된 파일의 모든 정보 dto 전송
 		
 		return "board_view";
 	}
