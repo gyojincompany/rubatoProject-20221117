@@ -187,9 +187,9 @@ public class HomeController {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		if(files.isEmpty()) { // 파일의 첨부여부 확인
-			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
+			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId, 0);
 		} else {
-			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
+			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId, 1);
 			ArrayList<RFBoardDto> latestBoard = dao.boardLatestInfo(sessionId);
 			RFBoardDto dto = latestBoard.get(0);
 			int rfbnum = dto.getRfbnum();

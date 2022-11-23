@@ -95,10 +95,15 @@
         
         <p id="file_info">
         	※ 첨부파일 : 
-        	<a href="">
+        	<a href="${pageContext.request.contextPath}/resources/uploadfiles/${fileDto.filename}">
         	${fileDto.fileoriname }
         	</a>
-        </p>
+        </p>       
+        <c:if test="${fileDto.fileextension =='jpg' or fileDto.fileextension =='png' or fileDto.fileextension =='bmp' or fileDto.fileextension =='gif'}">
+        	<br>
+        	<img width="300" src="${pageContext.request.contextPath}/resources/uploadfiles/${fileDto.filename}">
+        	<br>
+        </c:if>
         <br>
         <!-- 해당글의 댓글 리스트 출력 -->
         <table border="1" cellpadding="0" cellspacing="0" width="750">

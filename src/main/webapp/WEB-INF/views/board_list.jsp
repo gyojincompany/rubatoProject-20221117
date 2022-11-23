@@ -116,6 +116,9 @@
               <c:if test="${boardDto.rfbreplycount != 0 }">              
               &nbsp;&nbsp;[${boardDto.rfbreplycount }]
               </c:if>
+              <c:if test="${boardDto.filecount != 0 }">
+              &nbsp;<img width="15" src="${pageContext.request.contextPath}/resources/img/file.png">
+              </c:if>              
             </td>
             <td class="col3">${boardDto.rfbname }</td>
             <td class="col4">${boardDto.rfbdate }</td>
