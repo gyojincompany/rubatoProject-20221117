@@ -2,6 +2,7 @@ package com.rubato.home.controller;
 
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -11,11 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rubato.home.dao.IDao;
 import com.rubato.home.dto.RFBoardDto;
@@ -167,18 +172,42 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "writeOk")
-	public String writeOk(HttpServletRequest request, HttpSession session) {
+	public String writeOk(HttpServletRequest request, HttpSession session, @RequestPart MultipartFile files) throws IllegalStateException, IOException {
 		
 		String boardName = request.getParameter("rfbname");
 		String boardTitle = request.getParameter("rfbtitle");
-		String boardContent = request.getParameter("rfbcontent");
+		String boardContent = request.getParameter("rfbcontent");		
 		
 		String sessionId = (String) session.getAttribute("memberId");
 		//글쓴이의 아이디는 현재 로그인된 유저의 아이디이므로 세션에서 가져와서 전달 
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
+		if(files.isEmpty()) { // 파일의 첨부여부 확인
+			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
+		} else {
+			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
+			
+			//파일첨부
+			String fileoriname = files.getOriginalFilename();//첨부된 파일의 원래 이름
+			String fileextension = FilenameUtils.getExtension(fileoriname).toLowerCase();
+			//첨부된 파일의 확장자 추출 후 소문자로 강제 변경
+			File destinationFile;//java.io 패키지 제공 클래스 임포트
+			String destinationFileName;//실제 서버에 저장된 파일의 변경된 이름이 저장될 변수 선언
+			String fileurl = "D:/springboot_workspace/rubatoProject-20221117/src/main/resources/static/uploadfiles/";
+			//첨부된 파일이 저장될 서버의 실제 폴더 경로
+			
+			destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileextension;
+			//알파벳대소문자와 숫자를 포함한 랜덤 32자 문자열 생성 후 .을 구분자로 원본 파일의 확장자를 연결->실제 서버에 저장될 파일의 이름
+			destinationFile = new File(fileurl+destinationFileName);	
+			
+			destinationFile.getParentFile().mkdir();
+			files.transferTo(destinationFile);
+			
+		}
+		
+		
+		
 		
 		return "redirect:board_list";
 	}
