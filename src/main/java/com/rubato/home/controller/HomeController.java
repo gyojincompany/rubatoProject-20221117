@@ -39,7 +39,13 @@ public class HomeController {
 		
 		List<RFBoardDto> boardDtos = dao.rfblist();//전체 글 리스트 불러오기
 		
-		boardDtos = boardDtos.subList(0, 4);		
+		int boardSize = boardDtos.size();//전체 글의 개수
+		
+		if(boardSize >= 4) {
+			boardDtos = boardDtos.subList(0, 4);
+		} else {
+			boardDtos = boardDtos.subList(0, boardSize+1);
+		} // 전체 글의 개수가 4개보다 작을 때 발생하는 인덱스 에러를 방지
 		
 		
 //		boardDtos.get(0);//가장 최근 글 첫번째
