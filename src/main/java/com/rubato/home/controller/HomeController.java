@@ -46,11 +46,10 @@ public class HomeController {
 		
 		int boardSize = boardDtos.size();//전체 글의 개수
 		
-		if(boardSize >= 4) {
+		if(boardSize > 4) {
 			boardDtos = boardDtos.subList(0, 4);
-		} else {
-			boardDtos = boardDtos.subList(0, boardSize+1);
-		} // 전체 글의 개수가 4개보다 작을 때 발생하는 인덱스 에러를 방지
+		} 
+		// 전체 글의 개수가 4개보다 작을 때 발생하는 인덱스 에러를 방지
 		
 		
 //		boardDtos.get(0);//가장 최근 글 첫번째
@@ -187,7 +186,9 @@ public class HomeController {
 			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
 		} else {
 			dao.rfbwrite(boardName, boardTitle, boardContent, sessionId);
-			
+			ArrayList<RFBoardDto> latestBoard = dao.boardLatestInfo(sessionId);
+			RFBoardDto dto = latestBoard.get(0);
+			int rfbnum = dto.getRfbnum();
 			//파일첨부
 			String fileoriname = files.getOriginalFilename();//첨부된 파일의 원래 이름
 			String fileextension = FilenameUtils.getExtension(fileoriname).toLowerCase();
@@ -197,12 +198,18 @@ public class HomeController {
 			String fileurl = "D:/springboot_workspace/rubatoProject-20221117/src/main/resources/static/uploadfiles/";
 			//첨부된 파일이 저장될 서버의 실제 폴더 경로
 			
-			destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileextension;
-			//알파벳대소문자와 숫자를 포함한 랜덤 32자 문자열 생성 후 .을 구분자로 원본 파일의 확장자를 연결->실제 서버에 저장될 파일의 이름
-			destinationFile = new File(fileurl+destinationFileName);	
+			do {
+				destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileextension;
+				//알파벳대소문자와 숫자를 포함한 랜덤 32자 문자열 생성 후 .을 구분자로 원본 파일의 확장자를 연결->실제 서버에 저장될 파일의 이름
+				destinationFile = new File(fileurl+destinationFileName);	
+			} while(destinationFile.exists());
+			//혹시 같은 이름의 파일이름이 존재하는지 확인
 			
 			destinationFile.getParentFile().mkdir();
-			files.transferTo(destinationFile);
+			files.transferTo(destinationFile);//업로드된 파일이 지정한 폴더로 이동 완료!
+			
+			dao.fileInfoInsert(rfbnum, fileoriname, destinationFileName, fileextension, fileurl);		
+			
 			
 		}
 		

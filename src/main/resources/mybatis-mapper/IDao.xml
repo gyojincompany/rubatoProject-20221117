@@ -85,4 +85,14 @@
 		SELECT * FROM rubafreeboard WHERE rfbname LIKE '%' || #{param1} || '%' ORDER BY rfbnum DESC	
 	</select>
 	
+	<!-- 파일업로드 SQL -->
+	<insert id="fileInfoInsert">
+		INSERT INTO rubafiles(filenum, boardnum, fileoriname, filename, fileextension, fileurl) 
+		VALUES (file_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+	</insert>
+	
+	<select id="boardLatestInfo" resultType="com.rubato.home.dto.RFBoardDto">
+		SELECT * FROM rubafreeboard WHERE rfbuserid = #{param1} ORDER BY rfbnum DESC
+	</select>
+	
 </mapper>
