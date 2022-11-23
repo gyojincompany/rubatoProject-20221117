@@ -95,7 +95,7 @@
         
         <p id="file_info">
         	※ 첨부파일 : 
-        	<a href="${pageContext.request.contextPath}/resources/uploadfiles/${fileDto.filename}">
+        	<a href="${pageContext.request.contextPath}/resources/uploadfiles/${fileDto.filename}" download>
         	${fileDto.fileoriname }
         	</a>
         </p>       

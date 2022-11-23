@@ -318,4 +318,29 @@ public class HomeController {
 		return "board_list";
 	}
 	
+	@RequestMapping(value = "file_down")
+	public String file_down(HttpServletRequest request, Model model, HttpServletResponse response) {
+		
+		String rfbnum = request.getParameter("rfbnum");//파일이 첨부된 원글 번호
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		FileDto fileDto = dao.getFileInfo(rfbnum);
+		
+		String filename = fileDto.getFilename();
+		
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			out = response.getWriter();
+			out.println("<script>window.location.href='/resources/uploadfiles/" + filename + "'</script>");
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:board_list";
+	}
+	
 }
